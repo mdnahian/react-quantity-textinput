@@ -1,0 +1,28 @@
+{
+  "name": "react-quantity-textinput",
+  "version": "1.0.0",
+  "description": "A TextInput for quantity using up and down buttons.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mdnahian/react-quantity-textinput.git"
+  },
+  "keywords": [
+    "react-native",
+    "react",
+    "TextInput",
+    "quantity",
+    "amount",
+    "up",
+    "down"
+  ],
+  "author": "Md Islam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mdnahian/react-quantity-textinput/issues"
+  },
+  "homepage": "https://github.com/mdnahian/react-quantity-textinput#readme"
+}
