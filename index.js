@@ -17,13 +17,20 @@ import {
 module.exports = React.createClass({
   getInitialState: function () {
 
+    var style = styles.wrapper;
     var styleTextInput = styles.textinput;
     var styleButton = styles.button;
+    var styleImage = styles.image;
     var editable = true;
     var stepsize = 1;
     var value = "0";
     var min = 0;
     var max = null;
+    var onChangeText = this.props.onChangeText;
+
+    if(this.props.style != null) {
+      style = this.props.style;
+    }
 
     if(this.props.styleTextInput != null) {
       styleTextInput = this.props.styleTextInput;
@@ -31,6 +38,10 @@ module.exports = React.createClass({
 
     if(this.props.styleButton != null) {
       styleButton = this.props.styleButton;
+    }
+
+    if(this.props.styleImage != null) {
+      styleImage = this.props.styleImage;
     }
 
     if(this.props.editable != null) {
@@ -54,8 +65,10 @@ module.exports = React.createClass({
     }
 
     return {
+      style: style,
       styleTextInput: styleTextInput,
       styleButton: styleButton,
+      styleImage: styleImage,
       editable: editable,
       stepsize: stepsize,
       value: value,
@@ -64,20 +77,22 @@ module.exports = React.createClass({
     }
   },
   render: function () {
-    return <View style={styles.horizontal}>
-      <TextInput
-        style={this.state.styleTextInput}
-        editable={this.state.editable}
-        keyboardType={'numeric'}
-        value={this.state.value}
-        onChangeText={(text) => this.setState({value: text})}/>
-      <View style={styles.verticle}>
-        <TouchableHighlight underlayColor={'#999999'} onPress={this.upBtnPressed} style={this.state.styleButton}>
-          <Image source={require('./up.png')} style={styles.image} />
-        </TouchableHighlight>
-        <TouchableHighlight underlayColor={'#999999'} onPress={this.downBtnPressed} style={this.state.styleButton}>
-          <Image source={require('./down.png')} style={styles.image} />
-        </TouchableHighlight>
+    return <View style={this.state.style}>
+      <View style={styles.horizontal}>
+        <TextInput
+          style={[styles.textinput, this.state.styleTextInput]}
+          editable={this.state.editable}
+          keyboardType={'numeric'}
+          value={this.state.value}
+          onChangeText={(text) => this.setState({value: text})}/>
+        <View style={styles.verticle}>
+          <TouchableHighlight underlayColor={'#999999'} onPress={this.upBtnPressed} style={[styles.button, this.state.styleButton]}>
+            <Image source={require('./up.png')} style={this.state.styleImage} />
+          </TouchableHighlight>
+          <TouchableHighlight underlayColor={'#999999'} onPress={this.downBtnPressed} style={[styles.button, this.state.styleButton]}>
+            <Image source={require('./down.png')} style={this.state.styleImage} />
+          </TouchableHighlight>
+        </View>
       </View>
     </View>
   },
@@ -99,6 +114,10 @@ module.exports = React.createClass({
 
 
 var styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: '#eeeeee'
+  },
   verticle: {
     flexDirection: 'column'
   },
@@ -108,7 +127,8 @@ var styles = StyleSheet.create({
   textinput: {
     flex:10,
     backgroundColor: '#eeeeee',
-    padding: 5
+    padding: 5,
+    textAlign: 'center'
   },
   button: {
     backgroundColor: '#dedede',
