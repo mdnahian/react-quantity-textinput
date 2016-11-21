@@ -16,7 +16,7 @@ var Quantity = require('react-quantity-textinput');
 
 module.exports = React.createClass({
 	render: function () {
-		return <Quantity />
+		return <Quantity onChangeText={(text) => this.setState({ quantity: text })} />
 	}
 });
 ```
@@ -30,8 +30,10 @@ var Quantity = require('react-quantity-textinput');
 module.exports = React.createClass({
 	render: function () {
 		return <Quantity
+			style={{flex:1}}
 			styleTextInput={{backgroundColor:'#ffffff'}}
 			styleButton={{backgroundColor:'#000000'}}
+			styleImage={{width:12, height:12}}
 			editable={false}
 			stepsize={5}
 			initialValue={5}
