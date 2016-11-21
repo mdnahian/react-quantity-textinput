@@ -26,7 +26,6 @@ module.exports = React.createClass({
     var value = "0";
     var min = 0;
     var max = null;
-    var onChangeText = this.props.onChangeText;
 
     if(this.props.style != null) {
       style = this.props.style;
@@ -84,7 +83,7 @@ module.exports = React.createClass({
           editable={this.state.editable}
           keyboardType={'numeric'}
           value={this.state.value}
-          onChangeText={(text) => this.setState({value: text})}/>
+          onChangeText={(text) => this.onChangeText(text)}/>
         <View style={styles.verticle}>
           <TouchableHighlight underlayColor={'#999999'} onPress={this.upBtnPressed} style={[styles.button, this.state.styleButton]}>
             <Image source={require('./up.png')} style={this.state.styleImage} />
@@ -98,16 +97,39 @@ module.exports = React.createClass({
   },
   upBtnPressed: function () {
     if(this.state.value != this.state.max){
+      var value = (parseInt(this.state.value) + parseInt(this.state.stepsize)).toString();
+
       this.setState({
-        value: (parseInt(this.state.value) + parseInt(this.state.stepsize)).toString()
+        value: value
       });
+
+      this.props.onChangeText(value);
     }
   },
   downBtnPressed: function () {
     if(this.state.value != this.state.min){
+      var value = (parseInt(this.state.value) - parseInt(this.state.stepsize)).toString();
+
       this.setState({
-        value: (parseInt(this.state.value) - parseInt(this.state.stepsize)).toString()
+        value: value
       });
+
+      this.props.onChangeText(value);
+    }
+  },
+  onChangeText: function (text) {
+    if(!isNaN(text)){
+      this.setState({
+        value: text
+      });
+
+      this.props.onChangeText(text);
+    } else {
+      this.setState({
+        value: "0"
+      })
+
+      this.props.onChangeText("0");
     }
   }
 });
